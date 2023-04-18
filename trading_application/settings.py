@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'users',
     'assets',
-    'prices'
+    'prices',
+    'trades'
 ]
 
 MIDDLEWARE = [
