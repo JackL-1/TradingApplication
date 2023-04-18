@@ -9,11 +9,16 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+from dotenv import load_dotenv
 from pathlib import Path
 import environ
+
 env = environ.Env()
 environ.Env.read_env()
+
+load_dotenv()
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'users',
+    'assets',
+    'prices'
 ]
 
 MIDDLEWARE = [
@@ -80,7 +88,7 @@ WSGI_APPLICATION = 'trading_application.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'high-seas',
+        'NAME': 'ToTheMoon',
         'HOST': 'localhost',
         'PORT': 5432
     }
@@ -127,3 +135,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+#custom user model
+AUTH_USER_MODEL = 'users.User'
