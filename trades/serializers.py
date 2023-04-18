@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Trade
 from prices.models import Price
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class TradeSerializer(serializers.ModelSerializer):
@@ -30,3 +32,20 @@ class TradeSerializer(serializers.ModelSerializer):
                 }
                 return pnl_calculation.get(obj.buy_sell, None)
         return None
+
+
+# define the function to update PnL
+@receiver(post_save, sender=Price)
+
+def update_pnl(sender, instance, **kwargs):
+    trades = Trade.objects.all()
+    for trade in trades:
+        TradeSerializer(instance=trade).get_pnl()
+
+# trade = Trade.objects.get(id=)
+# trade_serializer = TradeSerializer(trade)
+# serialized_data = trade_serializer.data
+# pnl = serialized_data['pnl']
+
+# print(pnl)
+

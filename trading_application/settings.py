@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'users',
     'assets',
     'prices',
-    'trades'
+    'trades',
 ]
 
 MIDDLEWARE = [
