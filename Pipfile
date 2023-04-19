@@ -12,6 +12,7 @@ djangorestframework = "*"
 websocket-client = "*"
 finnhub-python = "*"
 apscheduler = "*"
+pyjwt = "*"
 
 [dev-packages]
 autopep8 = "*"

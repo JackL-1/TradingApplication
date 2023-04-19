@@ -5,14 +5,13 @@ from prices.models import Price
 from assets.models import Asset
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-
-
+from django.core.validators import MinValueValidator
 
 class Trade(models.Model):
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     execution_timestamp = models.DateTimeField()
-    volume = models.FloatField()
+    quantity = models.FloatField(validators=[MinValueValidator(0.1)], default=0.00)
     BUY = 'BUY'
     SELL = 'SELL'
     TRADE_CHOICES = [
