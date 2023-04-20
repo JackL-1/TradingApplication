@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers.common import UserSerializer
@@ -6,7 +7,9 @@ from django.contrib.auth.hashers import check_password
 import jwt
 from datetime import datetime, timedelta 
 from django.conf import settings
-from django import forms
+from django.contrib import messages
+from rest_framework import status
+from decimal import Decimal
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -31,7 +34,7 @@ class LoginView(APIView):
         password = request.data['password']
         user_to_login = User.objects.get(email=email)
         if not user_to_login.check_password(password):
-            print('Password dont match')
+            print('Passwords dont match')
             #raise permissionDenied('Unauthorized')
         dt = datetime.now() + timedelta(days=7)
         token = jwt.encode({'sub': user_to_login.id, 'exp': int(dt.timestamp())}, settings.SECRET_KEY, algorithm='HS256')
@@ -39,5 +42,34 @@ class LoginView(APIView):
         return Response({'message': f"Welcome,{user_to_login.username}",'token':token})
     
 
-class AddFundsForm(forms.Form):
-    funds_to_add = forms.DecimalField(max_digits=10, decimal_places=2, min_value=0.01)
+
+class AddFunds(APIView):
+    #Endpoint: 
+    def get(self, request):
+        return Response({"message": "Please enter the amount you wish to add to your funds."})
+      #Endpoint: post /api/add_funds
+    def post(self, request):
+        amount = Decimal(request.data.get('amount'))
+        if amount <= Decimal('0'):
+            return Response({"error": "Please enter a positive amount."}, status=status.HTTP_400_BAD_REQUEST)
+        user = request.user
+        user.funds += amount
+        user.save()
+        return Response({"message": f"Successfully deposited {amount:.2f} to your account."}, status=status.HTTP_200_OK)
+
+
+class RemoveFunds(APIView):
+    # authentication_classes = [TokenAuthentication]
+    # permission_classes = [IsAuthenticated]
+
+    # Endpoint: DELETE /api/remove_funds
+    def delete(self, request):
+        amount = Decimal(request.data.get('amount'))
+        if amount <= 0:
+            return Response({"error": "Please enter a positive amount."}, status=status.HTTP_400_BAD_REQUEST)
+        user = request.user
+        if user.funds < amount:
+            return Response({"error": "Insufficient funds."}, status=status.HTTP_400_BAD_REQUEST)
+        user.funds -= amount
+        user.save()
+        return Response({"message": f"{amount:.2f} Successfully withdrawn."}, status=status.HTTP_200_OK)
