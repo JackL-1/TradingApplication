@@ -1,12 +1,12 @@
 import os
 import django
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'your_project_name.settings')
 django.setup()
 
 import finnhub
 from decimal import Decimal
 from datetime import datetime
+from django.utils import timezone
 from assets.models import Asset
 from prices.models import Price
 
@@ -20,7 +20,7 @@ finnhub_client = finnhub.Client(
 def fetch_price(ticker):
     response = finnhub_client.quote(ticker)
     price = response['c']
-    timestamp = datetime.now()
+    timestamp = timezone.now()
 
     # Check if asset exists, and insert if not
     asset, created = Asset.objects.get_or_create(ticker=ticker)
@@ -39,12 +39,13 @@ def fetch_price(ticker):
 
 # Create a scheduler and add the fetch_price job
 scheduler = BackgroundScheduler()
-scheduler.add_job(fetch_price, 'interval', minutes=0.25, args=['TSLA'])  
+scheduler.add_job(fetch_price, 'interval', minutes=0.25, args=['AAPL'])  
 
 # Start the scheduler
 scheduler.start()
+#scheduler.shutdown() 
 
-fetch_price('TSLA')
 
-# print(finnhub_client.quote('TSLA'))
-# # print(finnhub_client.stock_symbols('US')[0:5])
+fetch_price('AAPL')
+
+print(finnhub_client.quote('AAPL'))

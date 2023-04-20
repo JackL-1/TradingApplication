@@ -20,3 +20,5 @@ for asset in asset_data:
     if not Asset.objects.filter(ticker=ticker).exists():
         # Create a new asset record
         Asset.objects.create(ticker=ticker, name=name, product=product)
+
+# # print(finnhub_client.stock_symbols('US')[0:5])
