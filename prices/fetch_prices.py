@@ -41,6 +41,13 @@ def fetch_price(ticker):
 scheduler = BackgroundScheduler()
 
 def start_scheduler(ticker):
+    existing_jobs = scheduler.get_jobs()
+
+    for job in existing_jobs:
+        if job.args[0] == ticker:
+            #We use an early return in the case that the job already exists
+            return
+    #otherwise this block runs     
     scheduler.add_job(fetch_price, 'interval', minutes=0.5, args=[ticker])
     scheduler.start()
 
