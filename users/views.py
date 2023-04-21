@@ -73,3 +73,9 @@ class RemoveFunds(APIView):
         user.funds -= amount
         user.save()
         return Response({"message": f"{amount:.2f} Successfully withdrawn."}, status=status.HTTP_200_OK)
+
+
+class ToTheMoonView(APIView):
+    def get(self, request):
+        data = {'message': 'To the moon!'}
+        return Response(data)

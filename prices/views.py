@@ -1,3 +1,16 @@
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.views import View
+import json
+from .fetch_prices import fetch_price, start_scheduler
 
-# Create your views here.
+
+class GetPriceView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        ticker = data.get('ticker')
+        #Calls fetch_price function with the ticker from the client as an arg
+        fetch_price(ticker)
+        #Calling our function to also start the scheduler for prices to update at a set interval
+        start_scheduler(ticker)
+
+        return JsonResponse({"message": f"Fetched price for {ticker}"})

@@ -39,13 +39,14 @@ def fetch_price(ticker):
 
 # Create a scheduler and add the fetch_price job
 scheduler = BackgroundScheduler()
-scheduler.add_job(fetch_price, 'interval', minutes=0.25, args=['AAPL'])  
 
-# Start the scheduler
-scheduler.start()
+def start_scheduler(ticker):
+    scheduler.add_job(fetch_price, 'interval', minutes=0.5, args=[ticker])
+    scheduler.start()
+
 #scheduler.shutdown() 
 
 
-fetch_price('AAPL')
+# fetch_price('AAPL')
 
-print(finnhub_client.quote('AAPL'))
+# print(finnhub_client.quote('AAPL'))

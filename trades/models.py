@@ -34,14 +34,14 @@ class Trade(models.Model):
         current_price = self.get_latest_price()
         print('CURRENT PRICE-->',self.get_latest_price())
         execution_price = self.execution_price
-        print('EXECUTION PRICE -->', self.execution_price)
+        #print('EXECUTION PRICE -->', self.execution_price)
 
         if self.buy_sell == Trade.BUY and current_price > execution_price: # Expected prices for a buy 
                 pnl_value = abs((current_price - execution_price) * Decimal(str(self.quantity)))
-                print ('BUY route HIT for: current>execution', 'RESULT:', abs((current_price - execution_price) * Decimal(str(self.quantity))))
+                #print ('BUY route HIT for: current>execution', 'RESULT:', abs((current_price - execution_price) * Decimal(str(self.quantity))))
         else:  
                 pnl_value = abs((execution_price - current_price) * Decimal(str(self.quantity)))
-                print ('BUY route HIT for: current<execution',abs((current_price - execution_price) * Decimal(str(self.quantity))))
+                #print ('BUY route HIT for: current<execution',abs((current_price - execution_price) * Decimal(str(self.quantity))))
         
         if self.buy_sell == Trade.SELL and current_price < execution_price:# Expected Prices for a sell
             
@@ -50,8 +50,8 @@ class Trade(models.Model):
                 pnl_value = -abs((current_price - execution_price) * Decimal(str(self.quantity)))
 
         if current_price == execution_price:
-            print(f'Trade ID: {self.id}, Buy/Sell : {self.buy_sell}, PnL: {Decimal("0.000")}')
+            #print(f'Trade ID: {self.id}, Buy/Sell : {self.buy_sell}, PnL: {Decimal("0.000")}')
             return Decimal('0.000')
 
-        print(f'Trade ID: {self.id}, Buy/Sell : {self.buy_sell}, PnL: {pnl_value}')
+        print(f'Trade ID: {self.id}, Buy/Sell : {self.buy_sell},EXECUTION PRICE:{ self.execution_price}  PnL: {pnl_value}')
         return pnl_value

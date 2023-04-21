@@ -1,16 +1,22 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+
 import { useEffect } from 'react'
 import axios from 'axios'
 
 const App = () => {
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await axios.get('/api/home/') 
-      console.log(data)
-    }
-    getData()
-  })
 
-  return <h1>Test! </h1>
+  return (
+    <div className="site-wrapper">
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} /> */}
+        </Routes>
+      </BrowserRouter>
+    </div>
+  )
+
 }
 
 export default App

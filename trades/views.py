@@ -83,5 +83,8 @@ class ExitTradeView(APIView):
         trade.delete()
 
         # Return a response indicating the trade has been successfully deleted
-        return Response({'detail': 'Trade exited successfully'}, status=status.HTTP_200_OK)
+        return Response({
+        'detail': 'Trade exited successfully',
+        'pnl': f'${pnl:.3f}',
+    }, status=status.HTTP_200_OK)
     
