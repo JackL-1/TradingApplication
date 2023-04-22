@@ -7,6 +7,9 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
+//Styles 
+import '../../styles/auth/login.scss'
+
 
 const Login = () => {
 
@@ -14,11 +17,11 @@ const Login = () => {
   const navigate = useNavigate()
 
   // ! State
-  const [ formFields, setFormFields ] = useState({
+  const [formFields, setFormFields] = useState({
     email: '',
     password: '',
   })
-  const [ error, setError ] = useState('')
+  const [error, setError] = useState('')
 
   // ! Executions
   const handleChange = (e) => {
@@ -46,8 +49,8 @@ const Login = () => {
         <Row>
           <Col as="form" xs={{ span: 10, offset: 1 }} sm={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={handleSubmit}>
             <h1 className='display-6 text-center'>Login</h1>
-            <label htmlFor="email">Email</label>
-            <input type="email" name="email" placeholder='Email' onChange={handleChange} value={formFields.email} />
+            <label htmlFor="usernameOrEmail">Username or Email</label>
+            <input type="text" name="usernameOrEmail" placeholder='Username or Email' onChange={handleChange} value={formFields.usernameOrEmail} />
             <label htmlFor="password">Password</label>
             <input type="password" name="password" placeholder='Password' onChange={handleChange} value={formFields.password} />
             <div className='btnCenter'>
