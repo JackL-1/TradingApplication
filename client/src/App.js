@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 
-import { useEffect } from 'react'
-import axios from 'axios'
+//! Components
+import Login from './components/auth/Login'
+import Register from './components/auth/Register'
+import ToTheMoon from './components/default/ToTheMoon'
 
 const App = () => {
 
@@ -10,8 +12,9 @@ const App = () => {
     <div className="site-wrapper">
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} /> */}
+          <Route path="/login/" element={<Login />} />
+          <Route path="/register/" element={<Register />} />
+          <Route path="/" element={<ToTheMoon />} />
         </Routes>
       </BrowserRouter>
     </div>

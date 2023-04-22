@@ -16,14 +16,17 @@ User = get_user_model()
 
 class RegisterView(APIView):
     def post(self, request):
-        # print('REGISTER DATA->', request.data)
-        # Endpoint: Post /api/auth/register/
+        print('REGISTER DATA->', request.data)
         user_to_add = UserSerializer(data=request.data)
+        print('IS_VALID? ->', user_to_add.is_valid())
         if user_to_add.is_valid():
             user = user_to_add.save()
+            print('USER DATA ->', UserSerializer(user).data)
             return Response({"message": "User registered successfully", "user": UserSerializer(user).data}, status=201)
         else:
+            print('ERRORS ->', user_to_add.errors)
             return Response(user_to_add.errors, status=400)
+
 
 
 class LoginView(APIView):

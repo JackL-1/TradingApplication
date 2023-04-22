@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@700&display=swap');
+
+
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: poppins;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  transform-style: preserve-3d;
+
+}
+
+.green {
+  font-family: 'orbitron';
+  color: rgb(0, 255, 123);
+  text-shadow:  0 0 10px #00ff1a,
+  0 0 50px #0dff0093,
+  0 0 60px #78787879,
+  0 0 90px #3d3d3d5a;
+}
+
+.red {
+  color: rgb(255, 0, 0);
+}
+
+
+h1 {
+  color: white;
+  font-family: orbitron;
+  font-weight: 900;
+  font-size: 40px;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+}
+
+h1 span:first-child {
+  font-size: 35px;
+}
+
+h1 span:last-child {
+  font-size: 60px;
+  margin-left: none;
+  position: relative;
+  top: -50px;
+  left: 10px;
+  text-shadow:  0 0 0px #ffffff,
+  0 0 30px #ffffffb8,
+  0 0 60px #78787879,
+  0 0 90px #3d3d3d5a;
+}
+
+.candlesticks {
+  height: 80px;
+  margin-left: 20px;
+}
+
+
+
+.moon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: url(/images/moon.jpg);
+  background-size: cover;
+  background-repeat: repeat-x;
+  border-radius: 50%;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 1), 0 0 110px #ffffffa0;
+  animation: animateMoon 200s linear infinite;
+}
+
+@keyframes animateMoon {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: -4096px 0;
+  }
+
+}
+
+
+.bg_container {
+  background-color: black;
+  height: 100vh;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 65%;
+}
+
+img {
+  max-height: 45%;
+  max-width: 45%;
+}
+
+
+
+.button-container {
+  font-family: 'orbitron';
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+}
