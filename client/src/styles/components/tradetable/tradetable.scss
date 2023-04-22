@@ -8,7 +8,12 @@
   border: 1px;
 }
 
+.table-wrapper {
+  height: 450px;
+  overflow-y: scroll;
 
+  margin: 5px;
+}
 
 table {
   font-family: 'IBM Plex Sans';
@@ -72,13 +77,6 @@ td {
   padding-bottom:1px;
 }
 
-
-.table-wrapper {
-  max-height: 300px;
-  overflow-y: scroll;
-
-  margin: 5px;
-}
 
 
 // if Buy/Sell 
