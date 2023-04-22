@@ -47,9 +47,9 @@ const Login = () => {
     <main className="form-page">
       <Container>
         <Row>
-          <Col as="form" xs={{ span: 10, offset: 1 }} sm={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={handleSubmit}>
-            <h1 className='display-6 text-center'>Login</h1>
-            <label htmlFor="usernameOrEmail">Username or Email</label>
+          <Col classname ='loginpage' as="form" xs={{ span: 10, offset: 1 }} sm={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={handleSubmit}>
+            <h1 className='logintitle'>Login</h1>
+            <label htmlFor="usernameOrEmail">Username/Email</label>
             <input type="text" name="usernameOrEmail" placeholder='Username or Email' onChange={handleChange} value={formFields.usernameOrEmail} />
             <label htmlFor="password">Password</label>
             <input type="password" name="password" placeholder='Password' onChange={handleChange} value={formFields.password} />

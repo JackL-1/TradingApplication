@@ -1,0 +1,115 @@
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap');
+
+
+.tradetable {
+  display: flex;
+  background: none !important;
+  border: 1px;
+}
+
+
+
+table {
+  font-family: 'IBM Plex Sans';
+  border: 1px solid black;
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+tr{
+color:white;
+}
+
+
+tr:nth-child(even) {
+  background-color: #111C24;
+}
+
+tr:nth-child(odd) {
+  background-color: #010101;
+}
+
+th {
+  font-size: 12px;
+  font-weight: 400;
+  color: white;
+  position: sticky;
+  top: 0px;
+  margin-top: 1px;
+  padding:7px;
+  background-color: #13161A;
+}
+
+td:first-child {
+  padding-left: 20px;
+}
+
+td:nth-child(3) {
+  padding-left: 25px;
+}
+
+td:nth-child(4) {
+  padding-left: 7px;
+}
+
+td:nth-child(5) {
+  padding-left: 20px;
+}
+
+td:nth-child(6) {
+  padding-left: 20px;
+}
+
+td:nth-child(7) {
+  padding-right: 10x;
+}
+
+td {
+  font-size: 12px;
+  border-top: 0.5px solid black;
+  border-bottom: 0.5px solid black;
+  padding-top:1px;
+  padding-bottom:1px;
+}
+
+
+.table-wrapper {
+  max-height: 300px;
+  overflow-y: scroll;
+
+  margin: 5px;
+}
+
+
+// if Buy/Sell 
+
+.greenbuy {
+  background:none;
+  color: rgb(0, 255, 123);
+  text-shadow:  0 0 0px rgb(0, 255, 123),
+  0 0 20px #3d3d3d5a;
+}
+
+.redsell {
+  background:none;
+  color: rgb(255, 0, 0);
+  text-shadow:  0 0 0px rgb(255, 0, 0),
+  0 0 20px #3d3d3d5a;
+  
+}
+
+//scroll bar 
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #333;
+  height:5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #000;
+}
+

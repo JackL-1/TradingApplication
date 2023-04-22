@@ -2,7 +2,9 @@ import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import MoonCartoon from '../../images/MoonCartoon.png'
 import Container from 'react-bootstrap/Container'
-import '../../styles/default/defaultpage.scss'
+
+//styles 
+import '../../styles/components/default/defaultpage.scss'
 import candlesticks from '../../images/candlesticks.png'
 
 
@@ -30,11 +32,11 @@ const ToTheMoon = () => {
         </h1>
 
         <div className="button-container">
-          <Link to="/login">
-            <Button variant="primary">Login</Button>
+          <Link className="defaultbuttons" to="/login">
+            <Button className="custom-button1" >Login</Button>
           </Link>
-          <Link to="/register">
-            <Button variant="secondary">Register</Button>
+          <Link className="defaultbuttons" to="/register">
+            <Button className="custom-button2" >Register</Button>
           </Link>
         </div>
       </Container>

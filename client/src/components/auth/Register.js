@@ -50,10 +50,10 @@ const Register = () => {
     <main className="form-page">
       <Container>
         <Row>
-          {/* This Col is being renderes as a form element as we specified the "as" prop */}
+          {/* This Col is being rendered as a form element as we specified the "as" prop */}
           {/* As this is a form element, we can submit it and listen for the event */}
           <Col as="form" xs={{ span: 10, offset: 1 }} sm={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={handleSubmit}>
-            <h1 className='display-6 text-center'>Register</h1>
+            <h1 className='title'>Register</h1>
             {/* Username */}
             <label htmlFor="username">Username</label>
             <input type="text" name="username" placeholder='Username' onChange={handleChange} value={formFields.username} />
@@ -65,7 +65,7 @@ const Register = () => {
             <input type="password" name="password" placeholder='Password' onChange={handleChange} value={formFields.password} />
             {/* Password Confirmation */}
             <label htmlFor="password_confirmation">Password Confirmation</label>
-            <input type="password_confirmation" name="password_confirmation" placeholder='Password Confirmation' onChange={handleChange} value={formFields.passwordConfirmation} />
+            <input type="password_confirmation" name="password_confirmation" placeholder='Password Confirmation' onChange={handleChange} value={formFields.password_confirmation} />
             {/* Submit */}
             <div className='btnCenter'>
               <button className='btn mb-4'>Register</button>
