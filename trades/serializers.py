@@ -1,10 +1,6 @@
 from rest_framework import serializers
 from .models import Trade
-from prices.models import Price
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from decimal import Decimal
-from django.utils import timezone
+
 
 
 class TradeSerializer(serializers.ModelSerializer):

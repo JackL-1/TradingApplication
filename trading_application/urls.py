@@ -23,6 +23,7 @@ urlpatterns = [
     path('api/', include('users.urls')),
     path('api/trade/', include('trades.urls')),
     path('api/', include('prices.urls')),
+    path('api/', include('assets.urls')),
 ]
 
 

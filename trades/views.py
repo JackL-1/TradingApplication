@@ -13,7 +13,9 @@ from rest_framework.views import APIView
 
 
 from prices.fetch_prices import fetch_price, start_scheduler
-import asyncio
+
+
+
 
 class TradePreConfirm(APIView):
     serializer_class = TradeSerializer
