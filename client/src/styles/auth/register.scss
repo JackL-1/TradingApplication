@@ -7,14 +7,17 @@
   // color: white;
 }
 
-
-.link {
-  background-color: black;
-  font-family: 'orbitron';
-  background: none;
-  color: white;
-
+.site-wrapper{
+  height: 100vh;
 }
+
+.registerpage{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: black;
+}
+
 
 .container {
   display: flex;

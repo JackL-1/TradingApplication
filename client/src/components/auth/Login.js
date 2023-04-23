@@ -36,7 +36,7 @@ const Login = () => {
       localStorage.setItem('MoonToken', data.token)
       console.log('DATA TOKEN', data.token)
       axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
-      navigate('/')
+      navigate('/home')
     } catch (err) {
       console.log('error', err)
       setError(err.response.data.message)
@@ -44,10 +44,10 @@ const Login = () => {
   }
 
   return (
-    <main className="form-page">
-      <Container>
+    <main className="loginpage">
+      <Container className='loginbg'>
         <Row>
-          <Col classname ='loginpage' as="form" xs={{ span: 10, offset: 1 }} sm={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={handleSubmit}>
+          <Col className ='loginpage' as="form" xs={{ span: 10, offset: 1 }} sm={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={handleSubmit}>
             <h1 className='logintitle'>Login</h1>
             <label htmlFor="usernameOrEmail">Username/Email</label>
             <input type="text" name="usernameOrEmail" placeholder='Username or Email' onChange={handleChange} value={formFields.usernameOrEmail} />

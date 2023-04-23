@@ -37,7 +37,7 @@ const Register = () => {
     try {
       await axios.post('/api/register/', formFields)
       // Navigate to the login page
-      navigate('/')
+      navigate('/home')
 
     } catch (err) {
       console.log('error', err)
@@ -47,7 +47,7 @@ const Register = () => {
 
   // ! JSX
   return (
-    <main className="form-page">
+    <main className="registerpage">
       <Container>
         <Row>
           {/* This Col is being rendered as a form element as we specified the "as" prop */}

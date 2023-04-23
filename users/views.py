@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib import messages
 from rest_framework import status
 from decimal import Decimal
+from django.db.models import Q
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -32,10 +33,22 @@ class RegisterView(APIView):
 class LoginView(APIView):
     # Endpoint: Post /api/auth/login/
     def post(self, request):
-        print('REQUEST DATA ->', request.data)
+        if not request.data:
+            return Response({'error': 'Request data is missing.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if 'username' not in request.data:
+            return Response({'error': 'Username is missing.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if 'email' not in request.data:
+            return Response({'error': 'Email is missing.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if 'password' not in request.data:
+            return Response({'error': 'Password is missing.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        username = request.data['username']
         email = request.data['email']
         password = request.data['password']
-        user_to_login = User.objects.get(email=email)
+        user_to_login = User.objects.get(Q(email=email) | Q(username=username))
         if not user_to_login.check_password(password):
             print('Passwords dont match')
             #raise permissionDenied('Unauthorized')
@@ -43,6 +56,7 @@ class LoginView(APIView):
         token = jwt.encode({'sub': user_to_login.id, 'exp': int(dt.timestamp())}, settings.SECRET_KEY, algorithm='HS256')
         print('TOKEN',token)
         return Response({'message': f"Welcome,{user_to_login.username}",'token':token})
+
     
 
 
