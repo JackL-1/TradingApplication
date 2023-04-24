@@ -55,6 +55,5 @@ def start_scheduler(ticker):
 
 # scheduler.shutdown()
 
-fetch_price('AAPL')
 
 # print(finnhub_client.quote('AAPL'))

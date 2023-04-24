@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from .serializers.common import UserSerializer
 from django.contrib.auth.hashers import check_password
 import jwt
-from datetime import datetime, timedelta 
+from datetime import datetime, timedelta
 from django.conf import settings
 from django.contrib import messages
 from rest_framework import status
@@ -14,6 +14,7 @@ from django.db.models import Q
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
+
 
 class RegisterView(APIView):
     def post(self, request):
@@ -29,35 +30,25 @@ class RegisterView(APIView):
             return Response(user_to_add.errors, status=400)
 
 
-
 class LoginView(APIView):
     # Endpoint: Post /api/auth/login/
     def post(self, request):
-        if not request.data:
-            return Response({'error': 'Request data is missing.'}, status=status.HTTP_400_BAD_REQUEST)
+        email = request.data.get('email')
+        password = request.data.get('password')
 
-        if 'username' not in request.data:
-            return Response({'error': 'Username is missing.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        if 'email' not in request.data:
-            return Response({'error': 'Email is missing.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        if 'password' not in request.data:
+        if not password:
             return Response({'error': 'Password is missing.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        username = request.data['username']
-        email = request.data['email']
-        password = request.data['password']
-        user_to_login = User.objects.get(Q(email=email) | Q(username=username))
-        if not user_to_login.check_password(password):
-            print('Passwords dont match')
-            #raise permissionDenied('Unauthorized')
+        user_to_login = User.objects.filter(email=email).first()
+
+        if not user_to_login or not user_to_login.check_password(password):
+            return Response({'error': 'Invalid credentials.'}, status=status.HTTP_400_BAD_REQUEST)
+
         dt = datetime.now() + timedelta(days=7)
         token = jwt.encode({'sub': user_to_login.id, 'exp': int(dt.timestamp())}, settings.SECRET_KEY, algorithm='HS256')
-        print('TOKEN',token)
-        return Response({'message': f"Welcome,{user_to_login.username}",'token':token})
+        return Response({'message': f"Welcome, {user_to_login.username}", 'token': token})
 
-    
+
 
 
 class AddFunds(APIView):

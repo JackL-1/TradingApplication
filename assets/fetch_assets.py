@@ -10,19 +10,19 @@ finnhub_client = finnhub.Client(
 
 
 def fetch_assets():
+    asset_data = finnhub_client.stock_symbols('US')
+
+    for asset in asset_data:
+        ticker = asset['symbol']
+        name = asset['description']
+        product = asset['type']
+
+        # Check if the asset already exists in the database
+        if not Asset.objects.filter(ticker=ticker).exists():
+            # Create a new asset record
+            Asset.objects.create(ticker=ticker, name=name, product=product)
 
 
-  asset_data = finnhub_client.stock_symbols('US')
-
-  for asset in asset_data:
-      ticker = asset['symbol']
-      name = asset['description']
-      product = asset['type']
-
-      # Check if the asset already exists in the database
-      if not Asset.objects.filter(ticker=ticker).exists():
-          # Create a new asset record
-          Asset.objects.create(ticker=ticker, name=name, product=product)
 
 
 # # print(finnhub_client.stock_symbols('US')[0:5])

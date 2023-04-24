@@ -1,64 +1,42 @@
 import React from 'react'
 import Tradetable from '../trades/TradeTable'
 import Assettable from '../assets/AssetTable'
+import axios from 'axios'
+import { useState, useEffect } from 'react'
+
+
 //styles 
 import '../../styles/components/home/home.scss'
 
-
-
 const Home = () => {
-  const data = [
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Sell', pnl: 2.86 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Sell', pnl: 2.86 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Sell', pnl: 2.86 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Sell', pnl: 2.86 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Sell', pnl: 2.86 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Sell', pnl: 2.86 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Sell', pnl: 2.86 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Sell', pnl: 2.86 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: -3.874 },
-    { Ticker: 'AAPL', Quantity: '5.00', ExecutionPrice: '@166.75', ExecutionDate: '2023-04-21 13:10:43.78', buysell: 'Buy', pnl: 5.372 }
-    
-  ]
+  const [data, setData] = useState(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get('http://localhost:8000/api/assets/')
+
+      const Assets = response.data
+      console.log('DATA:', Assets)
+      console.log('Name:', Assets.AssetData[0].name)
+      console.log('Ticker:', Assets.AssetData[0].ticker)
+      console.log('product:', Assets.AssetData[0].product)
+
+
+      setData(Assets.AssetData)
+    }
+
+    fetchData()
+  }, [])
+
   return (
     <>
       <section className='background'>
-        <div className="tradetabledefaultpage" > 
-          <Tradetable data={data} />
-        </div>
-        <div className="assettabledefaultpage" > 
+        <div className="tradetabledefaultpage" >
+
           <Assettable data={data} />
+        </div>
+        <div className="assettabledefaultpage" >
+          {/* <Tradetable data={data} /> */}
         </div>
       </section>
     </>

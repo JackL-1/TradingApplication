@@ -31,8 +31,10 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log('formFields:', formFields)
     try {
-      const { data } = await axios.post('/api/login/', formFields)
+      const { data } = await axios.post('api/auth/login/', formFields)
+      
       localStorage.setItem('MoonToken', data.token)
       console.log('DATA TOKEN', data.token)
       axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
@@ -49,8 +51,8 @@ const Login = () => {
         <Row>
           <Col className ='loginpage' as="form" xs={{ span: 10, offset: 1 }} sm={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={handleSubmit}>
             <h1 className='logintitle'>Login</h1>
-            <label htmlFor="usernameOrEmail">Username/Email</label>
-            <input type="text" name="usernameOrEmail" placeholder='Username or Email' onChange={handleChange} value={formFields.usernameOrEmail} />
+            <label htmlFor="email"> Email</label>
+            <input type="text" name="email" placeholder=' Email' onChange={handleChange} value={formFields.email} />
             <label htmlFor="password">Password</label>
             <input type="password" name="password" placeholder='Password' onChange={handleChange} value={formFields.password} />
             <div className='btnCenter'>
@@ -65,6 +67,7 @@ const Login = () => {
 }
 
 export default Login
+
 
 
 

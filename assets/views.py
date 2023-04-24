@@ -16,4 +16,4 @@ class GetAllAssetsView(APIView):
         
         assets = Asset.objects.all()
         serialized_assets = AssetSerializer(assets, many=True)
-        return Response({"All Asset Data": serialized_assets.data})
+        return Response({"AssetData": serialized_assets.data})
