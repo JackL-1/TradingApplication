@@ -2,41 +2,79 @@ import React from 'react'
 import Tradetable from '../trades/TradeTable'
 import Assettable from '../assets/AssetTable'
 import axios from 'axios'
-import { useState, useEffect } from 'react'
-
+import { useState, useEffect, useCallback } from 'react'
+import LogoutButton from '../auth/logout'
+import AddFunds from './addfunds'
 
 //styles 
 import '../../styles/components/home/home.scss'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
-  const [data, setData] = useState(null)
+  const [assetData, setAssetData] = useState(null)
+  const [tradeData, setTradeData] = useState([])
+  
+  // const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // const handleAddFunds = async (amount) => {
+  //   try {
+  //     const response = await axios.post('http://localhost:8000/api/add_funds', {
+  //       amount: amount,
+  //     })
+  //     console.log(response.data)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  //   setIsModalOpen(false)
+  // }
+
+
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchAssetData = async () => {
       const response = await axios.get('http://localhost:8000/api/assets/')
 
       const Assets = response.data
-      console.log('DATA:', Assets)
-      console.log('Name:', Assets.AssetData[0].name)
-      console.log('Ticker:', Assets.AssetData[0].ticker)
-      console.log('product:', Assets.AssetData[0].product)
+      console.log('ASSETDATA:', Assets)
 
 
-      setData(Assets.AssetData)
+      setAssetData(Assets.AssetData)
     }
 
-    fetchData()
-  }, [])
+    const fetchTradeData = async () => {
+      const response = await axios.get('http://localhost:8000/api/trades/')
+      const trades = response.data
+
+      setTradeData(trades.TradeData)
+      console.log('TRADEDATA:', trades.TradeData)
+      console.log('Execution_Price:', trades.TradeData[0].execution_price)
+    }
+
+    fetchTradeData()
+    fetchAssetData()
+  }, [tradeData])
+
+
+  const handleLogout = async () => {
+    // perform logout actions, e.g. clear user data from local storage, etc.
+    // redirect the user to the default page
+    useNavigate('/')
+  }
 
   return (
     <>
+      <div className="hero">
+        <h1>ToTheMoon</h1>
+        {/* <AddFunds className='addfunds' onClick={handleAddFunds} /> */}
+        <LogoutButton className='logout' onClick={handleLogout} />
+      </div>
       <section className='background'>
-        <div className="tradetabledefaultpage" >
-
-          <Assettable data={data} />
-        </div>
         <div className="assettabledefaultpage" >
-          {/* <Tradetable data={data} /> */}
+
+          <Assettable data={assetData} />
+        </div>
+        <div className="tradetabledefaultpage" >
+          <Tradetable data={tradeData} />
         </div>
       </section>
     </>

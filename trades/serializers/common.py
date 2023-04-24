@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from .models import Trade
-
-
+from ..models import Trade
 
 class TradeSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(source='user.id')
@@ -11,7 +9,7 @@ class TradeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trade
-        fields = ('id', 'user_id', 'asset', 'quantity', 'buy_sell', 'execution_timestamp', 'execution_price', 'pnl')
+        fields = '__all__'
 
     def get_pnl(self, obj):
         return obj.pnl

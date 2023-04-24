@@ -1,5 +1,32 @@
+.hero {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color:#111C24;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 1; 
+
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+  }
+}
+
+.logoutbutton {
+  background: url(../../../images/logsign.png);
+  cursor: pointer;
+  border: none;
+}
+
+
 .background {
   background:rgb(0, 0, 0);
+  z-index: 0;
 }
 
 .background {
@@ -11,11 +38,55 @@
 .tradetabledefaultpage {
   background: none !important;
   border: 1px;
+  
+  margin-bottom:23%;
   margin-right: 5px;
 }
 
 .assettabledefaultpage {
   background: none !important;
   border: 1px;
-  margin-top: 20px;
+  margin-bottom: 25%;
+  
+}
+
+
+@media screen and (min-width: 480px) and (max-width: 1030px) {
+  /* CSS rules for tablets */
+
+  .background {
+    flex-direction: column;
+  }
+  
+  .tradetabledefaultpage,
+  .assettabledefaultpage {
+    margin: 20px;
+    max-width: 100vw;
+  }
+  
+  table {
+    font-size: 14px;
+  }
+
+
+
+}
+
+
+
+@media (max-width: 480px) {
+  // for mobile 
+  .background {
+    flex-direction: column;
+  }
+  
+  .tradetabledefaultpage,
+  .assettabledefaultpage {
+    margin: 20px;
+    max-width: 100vw;
+  }
+  
+  table {
+    font-size: 10px;
+  }
 }

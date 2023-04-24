@@ -123,10 +123,12 @@ img {
   font-family: 'orbitron';
   background:none;
   color: white;
+  padding: 0;
 }
 
 .button-container {
-  background-color: black;
+  background-color: transparent;
+  padding:none;
   font-family: 'orbitron';
   background:none;
   color: white;
@@ -138,7 +140,8 @@ img {
 
 .custom-button1 {
   font-size: 18px;
-  background-color: none;
+  color: white;
+  background-color: transparent;
   border: none;
   text-shadow:  0 0 0px #ffffff,
     0 0 20px #ffffffb8,
@@ -155,7 +158,8 @@ img {
 
 .custom-button2 {
   font-size: 18px;
-  background-color: none;
+  background-color: transparent;
+  color: white;
   border: none;
   text-shadow:  0 0 0px #ffffff,
     0 0 20px #ffffffb8,

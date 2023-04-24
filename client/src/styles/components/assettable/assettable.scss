@@ -2,6 +2,31 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap');
 
 
+
+.buybutton, .sellbutton{
+font-style: 'IBM Plex Sans';
+background: none;
+padding:none;
+border:none;
+margin:none;
+}
+
+.buybutton{
+  background:none;
+  color: rgb(0, 255, 123);
+  text-shadow:  0 0 0px rgb(0, 255, 123),
+  0 0 20px #3d3d3d5a;
+}
+
+.sellbutton{
+  background:none;
+  color: rgb(255, 0, 0);
+  text-shadow:  0 0 0px rgb(255, 0, 0),
+  0 0 20px #3d3d3d5a;
+}
+
+
+
 .tradetable {
   display: flex;
   background: none !important;
@@ -46,11 +71,17 @@ th {
 }
 
 td:first-child {
-  padding-left: 20px;
+  padding-left: 5px;
+  padding-right: -6px;
+  margin-right: 2px;
+}
+
+td:nth-child(2) {
+  padding:none
 }
 
 td:nth-child(3) {
-  padding-left: 25px;
+  padding-left: 0px;
 }
 
 td:nth-child(4) {
@@ -78,21 +109,9 @@ td {
 }
 
 
+.modal{
+  background-color: white;
 
-// if Buy/Sell 
-
-.greenbuy {
-  background:none;
-  color: rgb(0, 255, 123);
-  text-shadow:  0 0 0px rgb(0, 255, 123),
-  0 0 20px #3d3d3d5a;
-}
-
-.redsell {
-  background:none;
-  color: rgb(255, 0, 0);
-  text-shadow:  0 0 0px rgb(255, 0, 0),
-  0 0 20px #3d3d3d5a;
   
 }
 

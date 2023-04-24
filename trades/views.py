@@ -4,42 +4,53 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from django.utils import timezone
 from .models import Trade, Asset
-from .serializers import TradeSerializer
+from .serializers.common import TradeSerializer
 from prices.models import Price
 from django.contrib.auth import get_user_model
 from users.authentication import JWTAuthentication
 from decimal import Decimal
 from rest_framework.views import APIView
-
+from .models import Trade
 
 from prices.fetch_prices import fetch_price, start_scheduler
+from trades.serializers.common import TradeSerializer
 
+class TradesView(APIView):
 
-
-
-class TradePreConfirm(APIView):
     serializer_class = TradeSerializer
     authentication_classes = (JWTAuthentication,)
     permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+          
+        user_trades = Trade.objects.filter(user=request.user)
+        serialized_trades = TradeSerializer(user_trades, many=True)
+        return Response({"TradeData": serialized_trades.data})
+
+
+class TradePreConfirm(APIView):
+    # serializer_class = TradeSerializer
+    # authentication_classes = (JWTAuthentication,)
+    # permission_classes = (IsAuthenticated,)
 
     def post(self, request, *args, **kwargs):
         asset_ticker = request.data.get('ticker')
         quantity = request.data.get('quantity')
         buy_sell = request.data.get('buy_sell')
-        
+
         try:
             asset = Asset.objects.get(ticker=asset_ticker)
         except Asset.DoesNotExist:
             return Response({"error": "Asset not found"}, status=status.HTTP_404_NOT_FOUND)
-        #fetches the latest quote to be displayed 
-        fetch_price(asset_ticker)  
+        # fetches the latest quote to be displayed
+        fetch_price(asset_ticker)
         latest_price = Price.objects.filter(
             asset=asset).order_by('-timestamp').first()
-        
+
         if not latest_price:
-            # Fetch the price 
+            # Fetch the price
             fetched_price = fetch_price(asset_ticker)
-            
+
             # Save the fetched price to the database
             price = Price(asset=asset, price=fetched_price)
             price.save()
@@ -49,13 +60,14 @@ class TradePreConfirm(APIView):
             # Return the fetched price
             return Response({"price": fetched_price}, status=status.HTTP_200_OK)
 
-        # Return the pre confirm of trade request 
+        # Return the pre confirm of trade request
         return Response({
-        f'Trade Pre confirm:'
-        f"buy_sell": buy_sell,
-        f"quantity": quantity,
-        f"ticker": asset_ticker,
-        f"price": latest_price.price }, status=status.HTTP_200_OK)
+            f'Trade Pre confirm:'
+            f"buy_sell": buy_sell,
+            f"quantity": quantity,
+            f"ticker": asset_ticker,
+            f"price": latest_price.price}, status=status.HTTP_200_OK)
+
 
 class TradePostView(generics.CreateAPIView):
     serializer_class = TradeSerializer
@@ -72,7 +84,7 @@ class TradePostView(generics.CreateAPIView):
             asset = Asset.objects.get(ticker=asset_ticker)
         except Asset.DoesNotExist:
             return Response({"error": "Asset not found"}, status=status.HTTP_404_NOT_FOUND)
-        
+
         latest_price = Price.objects.filter(
             asset=asset).order_by('-timestamp').first()
         if not latest_price:
@@ -81,7 +93,7 @@ class TradePostView(generics.CreateAPIView):
         # Set execution timestamp to now
         execution_timestamp = timezone.now()
 
-        # Calculate the Trade Value 
+        # Calculate the Trade Value
         execution_price = latest_price.price
         trade_value = latest_price.price * Decimal(str(quantity))
 
@@ -102,14 +114,13 @@ class TradePostView(generics.CreateAPIView):
         # Subtract trade_value from funds
         request.user.funds -= trade_value
         request.user.save()
-        
-        #Start the scheduler to retrieve regular prices which will trigger the pnl to be tracked 
+
+        # Start the scheduler to retrieve regular prices which will trigger the pnl to be tracked
         start_scheduler(asset_ticker)
-        
+
         # Serialize the trade object and return the response
         serializer = self.get_serializer(trade)
         return Response({'detail': 'Trade booked', 'data': serializer.data}, status=status.HTTP_201_CREATED)
-
 
 
 class ExitTradeView(APIView):
@@ -136,7 +147,6 @@ class ExitTradeView(APIView):
 
         # Return a response indicating the trade has been successfully deleted
         return Response({
-        'detail': 'Trade exited successfully',
-        'pnl': f'${pnl:.3f}',
-    }, status=status.HTTP_200_OK)
-    
+            'detail': 'Trade exited successfully',
+            'pnl': f'${pnl:.3f}',
+        }, status=status.HTTP_200_OK)
