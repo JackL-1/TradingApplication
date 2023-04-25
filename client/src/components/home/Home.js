@@ -56,7 +56,7 @@ const Home = () => {
 
 
   const handleLogout = async () => {
-    // perform logout actions, e.g. clear user data from local storage, etc.
+    // perform logout actions, e.g. clear user data from local storage
     // redirect the user to the default page
     useNavigate('/')
   }

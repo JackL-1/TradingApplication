@@ -1,23 +1,21 @@
 
-
 from django.apps import apps
 from prices.serializers.common import PriceSerializer
+from dotenv import load_dotenv
 from django.utils import timezone
 import finnhub
 import django
-django.setup()
+import os
 
+load_dotenv()
+django.setup()
 from apscheduler.schedulers.background import BackgroundScheduler
 
-
-finnhub_client = finnhub.Client(
-    api_key="cguhu6pr01qu2uq60r50cguhu6pr01qu2uq60r5g")
-
+finnhub_client = finnhub.Client(api_key=os.getenv('API_KEY'))
 
 def fetch_price(ticker):
     response = finnhub_client.quote(ticker)
     timestamp = timezone.now()
-
 
     # Check if asset exists, and insert if not
     asset_model = apps.get_model('assets', 'Asset')
@@ -56,4 +54,4 @@ def start_scheduler(ticker):
 # scheduler.shutdown()
 
 
-# print(finnhub_client.quote('AAPL'))
+print(finnhub_client.quote('AAPL'))

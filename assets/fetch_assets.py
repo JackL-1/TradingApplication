@@ -2,15 +2,19 @@ import finnhub
 from assets.models import Asset
 import os
 import django
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "TradingApplication.settings")
+from dotenv import load_dotenv
+from apscheduler.schedulers.background import BackgroundScheduler
+
+
+load_dotenv()
 django.setup()
 
-finnhub_client = finnhub.Client(
-    api_key="cguhu6pr01qu2uq60r50cguhu6pr01qu2uq60r5g")
+
+finnhub_client = finnhub.Client(api_key=os.getenv('API_KEY'))
 
 
 def fetch_assets():
-    asset_data = finnhub_client.stock_symbols('US')
+    asset_data = finnhub_client.stock_symbols('US')[0:5]
 
     for asset in asset_data:
         ticker = asset['symbol']
@@ -25,4 +29,4 @@ def fetch_assets():
 
 
 
-# # print(finnhub_client.stock_symbols('US')[0:5])
+#print(finnhub_client.stock_symbols('US')[0:5])
