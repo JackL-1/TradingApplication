@@ -38,7 +38,7 @@ const Login = () => {
       localStorage.setItem('MoonToken', data.token)
       console.log('DATA TOKEN', data.token)
       axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
-      navigate('/home')
+      navigate('/home/')
     } catch (err) {
       console.log('error', err)
       setError(err.response.data.message)

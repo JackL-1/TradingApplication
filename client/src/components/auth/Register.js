@@ -37,7 +37,7 @@ const Register = () => {
     try {
       await axios.post('/api/register/', formFields)
       // Navigate to the login page
-      navigate('/home')
+      navigate('/home/')
 
     } catch (err) {
       console.log('error', err)
