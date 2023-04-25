@@ -18,7 +18,7 @@ const Home = () => {
 
   // const handleAddFunds = async (amount) => {
   //   try {
-  //     const response = await axios.post('http://localhost:8000/api/add_funds', {
+  //     const response = await axios.post('/api/add_funds', {
   //       amount: amount,
   //     })
   //     console.log(response.data)
