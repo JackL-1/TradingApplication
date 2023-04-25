@@ -31,7 +31,7 @@ def on_error(ws, error):
 def on_close(ws):
     print("### closed ###")
 
-
+# define the tickers of live data feed we wish to subscribe to 
 def on_open(ws):
     ws.send('{"type":"subscribe","symbol":"AMZN"}')
 
@@ -39,7 +39,7 @@ def on_open(ws):
 if __name__ == "__main__":
     websocket.enableTrace(True)
     ws = websocket.WebSocketApp(
-        "wss://ws.finnhub.io?token=cguhu6pr01qu2uq60r50cguhu6pr01qu2uq60r5g",
+        "wss://ws.finnhub.io?token=os.getenv('API_KEY')",
         on_message=on_message,
         on_error=on_error,
         on_close=on_close

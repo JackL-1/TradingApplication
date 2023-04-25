@@ -13,6 +13,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 import environ
 import os
+import django_on_heroku 
 
 env = environ.Env()
 environ.Env.read_env()
@@ -25,6 +26,7 @@ load_dotenv()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 API_KEY = os.getenv('API_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -68,7 +70,9 @@ ROOT_URLCONF = 'trading_application.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'client')
+                 ]  # added the root folder of frontend here
+        ,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,7 +96,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'ToTheMoon',
         'HOST': 'localhost',
-        'PORT': 5432
     }
 }
 
@@ -132,6 +135,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+ROOT_URLCONF = 'trading_application.urls'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'client', "build", "static"),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -147,3 +155,8 @@ REST_FRAMEWORK = {
     ),
 
 }
+
+
+
+## Django settings for Heroku
+django_on_heroku.settings(locals())

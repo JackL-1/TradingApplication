@@ -40,7 +40,7 @@ const AssetTable = ({ data }) => {
     }
   
     try {
-      const response = await axios.post('http://localhost:8000/api/pre_confirm/', {
+      const response = await axios.post('/api/pre_confirm/', {
         ticker: selectedAsset.ticker,
         buy_sell: action,
         quantity: quantity,
@@ -52,7 +52,7 @@ const AssetTable = ({ data }) => {
   
       console.log(response.data)
   
-      const tradeResponse = await axios.post('http://localhost:8000/api/trade/', {
+      const tradeResponse = await axios.post('/api/trade/', {
         ticker: response.data.ticker,
         buy_sell: action,
         quantity: response.data.quantity,

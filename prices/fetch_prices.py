@@ -54,4 +54,4 @@ def start_scheduler(ticker):
 # scheduler.shutdown()
 
 
-print(finnhub_client.quote('AAPL'))
+# print(finnhub_client.quote('AAPL'))

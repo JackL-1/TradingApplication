@@ -15,6 +15,7 @@ apscheduler = "*"
 pyjwt = "*"
 django-cors-headers = "*"
 python-dotenv = "*"
+django-on-heroku = "*"
 
 [dev-packages]
 autopep8 = "*"
