@@ -32,7 +32,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchAssetData = async () => {
-      const response = await axios.get('http://localhost:8000/api/assets/')
+      const response = await axios.get('/api/assets/')
 
       const Assets = response.data
       console.log('ASSETDATA:', Assets)
@@ -42,7 +42,7 @@ const Home = () => {
     }
 
     const fetchTradeData = async () => {
-      const response = await axios.get('http://localhost:8000/api/trades/')
+      const response = await axios.get('/api/trades/')
       const trades = response.data
 
       setTradeData(trades.TradeData)

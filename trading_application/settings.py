@@ -70,8 +70,7 @@ ROOT_URLCONF = 'trading_application.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'client')
-                 ]  # added the root folder of frontend here
+        'DIRS': [os.path.join(BASE_DIR, 'client')]  # added the root folder of frontend here
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -135,7 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-ROOT_URLCONF = 'trading_application.urls'
+
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'client', "build", "static"),
