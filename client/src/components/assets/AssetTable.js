@@ -33,12 +33,12 @@ const AssetTable = ({ data }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-  
+
     if (!['Buy', 'Sell'].includes(action)) {
       alert('Please select either Buy or Sell')
       return
     }
-  
+
     try {
       const response = await axios.post('/api/pre_confirm/', {
         ticker: selectedAsset.ticker,
@@ -49,9 +49,9 @@ const AssetTable = ({ data }) => {
           'Content-Type': 'application/json',
         },
       })
-  
+
       console.log(response.data)
-  
+
       const tradeResponse = await axios.post('/api/trade/', {
         ticker: response.data.ticker,
         buy_sell: action,
@@ -61,20 +61,20 @@ const AssetTable = ({ data }) => {
           'Content-Type': 'application/json',
         },
       })
-  
+
       console.log(tradeResponse.data)
       setShowModal(false)
     } catch (error) {
       console.error(error)
     }
   }
-  
- 
+
+
 
   return (
     <div className="outer-wrapper">
-      <div className="search-bar">
-        <input
+      <div className="search_bar">
+        <input className = "searchInput"
           type="text"
           placeholder="Search by name..."
           value={searchQuery}
@@ -106,6 +106,16 @@ const AssetTable = ({ data }) => {
                     <td>
                       <button className='sellbutton' onClick={() => handleSellClick(item)}>Sell</button>
                     </td>
+                  </tr>
+                ))}
+              {Array.isArray(filteredData) &&
+                Array.from({ length: Math.max(0, 21 - filteredData.length) }).map((_, index) => (
+                  <tr key={`empty-${index}`}style={{ height: '17px' }}>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                   </tr>
                 ))}
             </tbody>

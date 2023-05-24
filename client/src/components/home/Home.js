@@ -1,8 +1,12 @@
 import React from 'react'
+import axios from 'axios'
 import Tradetable from '../trades/TradeTable'
 import Assettable from '../assets/AssetTable'
-import axios from 'axios'
+
+import { getPayload, isAuthenticated, removeToken, getToken, authenticated } from '../auth/helpers/auth'
+
 import { useState, useEffect, useCallback } from 'react'
+
 import LogoutButton from '../auth/logout'
 import AddFunds from './addfunds'
 
@@ -13,7 +17,7 @@ import { useNavigate } from 'react-router-dom'
 const Home = () => {
   const [assetData, setAssetData] = useState(null)
   const [tradeData, setTradeData] = useState([])
-  
+
   // const [isModalOpen, setIsModalOpen] = useState(false)
 
   // const handleAddFunds = async (amount) => {
@@ -32,27 +36,46 @@ const Home = () => {
 
   useEffect(() => {
     const fetchAssetData = async () => {
-      const response = await axios.get('/api/assets/')
-
-      const Assets = response.data
-      console.log('ASSETDATA:', Assets)
-
-
-      setAssetData(Assets.AssetData)
+      try {
+        const jwtToken = getToken() // Retrieve the JWT token from local storage
+        const response = await authenticated.get('/api/assets/', {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        })
+  
+        const assets = response.data
+        setAssetData(assets.AssetData)
+  
+        console.log('ASSETDATA:', assets)
+      } catch (error) {
+        console.error('Error fetching asset data:', error)
+      }
     }
-
+  
     const fetchTradeData = async () => {
-      const response = await axios.get('/api/trades/')
-      const trades = response.data
-
-      setTradeData(trades.TradeData)
-      console.log('TRADEDATA:', trades.TradeData)
-      console.log('Execution_Price:', trades.TradeData[0].execution_price)
+      try {
+        const jwtToken = getToken() // Retrieve the JWT token from local storage
+        const response = await authenticated.get('/api/trades/', {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        })
+  
+        const trades = response.data
+        setTradeData(trades.TradeData)
+  
+        console.log('TRADEDATA:', trades.TradeData)
+        console.log('Execution_Price:', trades.TradeData[0].execution_price)
+      } catch (error) {
+        console.error('Error fetching trade data:', error)
+      }
     }
-
+  
     fetchTradeData()
     fetchAssetData()
   }, [tradeData])
+  
 
 
   const handleLogout = async () => {

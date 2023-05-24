@@ -1,7 +1,13 @@
 
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap');
 
+.search_bar {
+border:none;
+}
 
+.searchInput{
+  border: none;
+}
 
 .buybutton, .sellbutton{
 font-style: 'IBM Plex Sans';
@@ -46,8 +52,10 @@ table {
   border-collapse: collapse;
   border-spacing: 0px;
 }
+
 tr{
 color:white;
+//height: 16px;
 }
 
 
@@ -101,6 +109,7 @@ td:nth-child(7) {
 }
 
 td {
+  min-width: 80px;
   font-size: 12px;
   border-top: 0.5px solid black;
   border-bottom: 0.5px solid black;

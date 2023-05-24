@@ -4,18 +4,42 @@
   // background-color: black;
   // font-family: 'orbitron';
   // background: none;
-  // color: white;
 }
 
 .site-wrapper{
   height: 100vh;
 }
 
+label {
+font-size: 13px;
+color: white;
+text-shadow:  0 0 2px #ffffff,
+0 0 5px #ffffffb8,
+}
+
+
+.register_input {
+  border:none;
+  background-color:  #111C24;
+  color: rgb(255, 255, 255) ;
+  margin-bottom: 20px;
+  }
+
+.register_button{
+  color: white;
+  font-size: 13px;
+  background: none;
+  border: none;
+  text-shadow:  
+  0 0 2px #ffffff,
+  0 0 5px #ffffffb8,
+  }
+
 .registerpage{
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: black;
+  background: rgb(0, 0, 0);
 }
 
 
@@ -30,7 +54,6 @@ form {
   flex-direction: column;
   align-items: center;
 }
-
 
 
 .title {

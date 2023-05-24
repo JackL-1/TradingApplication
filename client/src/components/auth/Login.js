@@ -52,11 +52,11 @@ const Login = () => {
           <Col className ='loginpage' as="form" xs={{ span: 10, offset: 1 }} sm={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={handleSubmit}>
             <h1 className='logintitle'>Login</h1>
             <label htmlFor="email"> Email</label>
-            <input type="text" name="email" placeholder=' Email' onChange={handleChange} value={formFields.email} />
+            <input className ="register_input" type="text" name="email" placeholder=' Email' onChange={handleChange} value={formFields.email} />
             <label htmlFor="password">Password</label>
-            <input type="password" name="password" placeholder='Password' onChange={handleChange} value={formFields.password} />
+            <input className ="register_input" type="password" name="password" placeholder='Password' onChange={handleChange} value={formFields.password} />
             <div className='btnCenter'>
-              <button className='btn mb-4'>Login</button>
+              <button className='login_button'>Login</button>
             </div>
             {error && <p className='text-danger text-center'>{error}</p>}
           </Col>
