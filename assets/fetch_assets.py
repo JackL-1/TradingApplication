@@ -5,6 +5,7 @@ from assets.models import Asset
 from dotenv import load_dotenv
 
 load_dotenv()
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "trading_applicaiton.settings")
 django.setup()
 
 
@@ -25,5 +26,5 @@ def fetch_assets():
             Asset.objects.create(ticker=ticker, name=name, product=product)
 
 
-
+fetch_assets()
 #print(finnhub_client.stock_symbols('US')[0:5])
