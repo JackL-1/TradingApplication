@@ -24,8 +24,6 @@ def fetch_assets():
             # Create a new asset record
             Asset.objects.create(ticker=ticker, name=name, product=product)
 
-fetch_assets()
-
 
 
 #print(finnhub_client.stock_symbols('US')[0:5])
