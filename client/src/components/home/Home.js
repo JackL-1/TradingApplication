@@ -43,16 +43,16 @@ const Home = () => {
             Authorization: `Bearer ${jwtToken}`,
           },
         })
-  
+
         const assets = response.data
         setAssetData(assets.AssetData)
-  
+
         console.log('ASSETDATA:', assets)
       } catch (error) {
         console.error('Error fetching asset data:', error)
       }
     }
-  
+
     const fetchTradeData = async () => {
       try {
         const jwtToken = getToken() // Retrieve the JWT token from local storage
@@ -61,21 +61,21 @@ const Home = () => {
             Authorization: `Bearer ${jwtToken}`,
           },
         })
-  
+
         const trades = response.data
         setTradeData(trades.TradeData)
-  
+
         console.log('TRADEDATA:', trades.TradeData)
         console.log('Execution_Price:', trades.TradeData[0].execution_price)
       } catch (error) {
         console.error('Error fetching trade data:', error)
       }
     }
-  
+
     fetchTradeData()
     fetchAssetData()
   }, [tradeData])
-  
+
 
 
   const handleLogout = async () => {
@@ -90,6 +90,12 @@ const Home = () => {
         <h1>ToTheMoon</h1>
         {/* <AddFunds className='addfunds' onClick={handleAddFunds} /> */}
         <LogoutButton className='logout' onClick={handleLogout} />
+      </div>
+      <div className="timezoneInfo">
+        <h2>Please note US Stocks price against NYSE hours: 14:30 - 21:00 GMT+1 </h2>
+        <h2>Please note US Stocks price against NYSE hours: 14:30 - 21:00 GMT+1 </h2>
+        <h2>Please note US Stocks price against NYSE hours: 14:30 - 21:00 GMT+1 </h2>
+        <h2>Please note US Stocks price against NYSE hours: 14:30 - 21:00 GMT+1 </h2>
       </div>
       <section className='background'>
         <div className="assettabledefaultpage" >

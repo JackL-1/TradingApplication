@@ -23,6 +23,43 @@
   border: none;
 }
 
+.timezoneInfo {
+  position: fixed; 
+  top: 70px; 
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  background-color: rgb(0, 0, 0);
+  padding:none;
+  z-index: 2; 
+
+}
+
+h2 {
+  color: rgb(255, 234, 0);
+  text-shadow: 0 0 5px  rgb(255, 208, 0),
+  0 0 60px #ffffff79;
+  font-family: 'orbitron' !important;
+  font-size: 15px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0 6rem;
+  letter-spacing: 1px;
+  animation: move-rtl 20000ms linear infinite;
+}
+
+@keyframes move-rtl {
+0%{
+  transform: translateX(0);
+}
+100%{
+  transform: translateX(-100%);
+}
+
+}
+
 
 .background {
   background:rgb(0, 0, 0);

@@ -11,6 +11,7 @@ import candlesticks from '../../images/candlesticks.png'
 const ToTheMoon = () => {
   return (
     <>
+
       <Container className="bg_container">
         <div className="content-wrapper">
           <section>
