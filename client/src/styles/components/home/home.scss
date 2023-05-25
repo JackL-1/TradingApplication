@@ -17,12 +17,28 @@
   }
 }
 
-.logout {
-  background: url(/images/logout.png);
-  cursor: pointer;
-  border: none;
+
+.logoutBtn {
+border: none !important;
+background-color: #111C24;
+padding:none !important;
+background-image: url(/images/logout.png);
+background-size: cover;
+height: 35px;
+width: 35px;
+z-index: 1; 
 }
 
+
+.addFundsBtn{
+background: none;
+border:none;
+color: white;
+text-shadow: 0 0 0px #ffffff,
+  0 0 30px #ffffffb8,
+  0 0 60px #78787879,
+  0 0 90px #3d3d3d5a;
+}
 
 .timezoneInfo {
   position: fixed; 

@@ -1,34 +1,34 @@
-
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap');
 
 .search_bar {
-border:none;
-}
-
-.searchInput{
   border: none;
 }
 
-.buybutton, .sellbutton{
-font-family: 'IBM Plex Sans';
-background: none;
-padding:none;
-border:none;
-margin:none;
+.searchInput {
+  border: none;
 }
 
-.buybutton{
-  background:none;
+.buybutton,
+.sellbutton {
+  font-family: 'IBM Plex Sans';
+  background: none;
+  padding: none;
+  border: none;
+  margin: none;
+}
+
+.buybutton {
+  background: none;
   color: rgb(0, 255, 123);
-  text-shadow:  0 0 0px rgb(0, 255, 123),
-  0 0 20px #3d3d3d5a;
+  text-shadow: 0 0 0px rgb(0, 255, 123),
+    0 0 20px #3d3d3d5a;
 }
 
-.sellbutton{
-  background:none;
+.sellbutton {
+  background: none;
   color: rgb(255, 0, 0);
-  text-shadow:  0 0 0px rgb(255, 0, 0),
-  0 0 20px #3d3d3d5a;
+  text-shadow: 0 0 0px rgb(255, 0, 0),
+    0 0 20px #3d3d3d5a;
 }
 
 
@@ -53,9 +53,9 @@ table {
   border-spacing: 0px;
 }
 
-tr{
-color:white;
-//height: 16px;
+tr {
+  color: white;
+  //height: 16px;
 }
 
 
@@ -74,7 +74,7 @@ th {
   position: sticky;
   top: 0px;
   margin-top: 1px;
-  padding:7px;
+  padding: 7px;
   background-color: #13161A;
 }
 
@@ -85,7 +85,7 @@ td:first-child {
 }
 
 td:nth-child(2) {
-  padding:none
+  padding: none
 }
 
 td:nth-child(3) {
@@ -113,16 +113,36 @@ td {
   font-size: 12px;
   border-top: 0.5px solid black;
   border-bottom: 0.5px solid black;
-  padding-top:1px;
-  padding-bottom:1px;
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 
-.modal{
-  background-color: white;
-
-  
+.modal {
+  margin-top:  50px;
+  background-color: #111C24;
+  color: white;
+  text-shadow: 0 0 0px #ffffff,
+    0 0 30px #ffffffb8,
+    0 0 60px #78787879,
+    0 0 90px #3d3d3d5a;
 }
+
+
+.modalSubmit,
+.modalButton,
+.modalOptions,
+.modalInput {
+  color: white;
+  background-color: #010101;
+}
+
+.modalTradeData {
+  color: white;
+
+}
+
+
 
 //scroll bar 
 
@@ -132,10 +152,9 @@ td {
 
 ::-webkit-scrollbar-thumb {
   background-color: #333;
-  height:5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
   background-color: #000;
 }
-

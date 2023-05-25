@@ -16,9 +16,11 @@ const LogoutButton = () => {
     <button
       onClick={handleLogout}
       disabled={isLoading}
-      className="logout-button"
+      className="logoutBtn"
     >
-      {isLoading ? 'Logging out...' : 'Logout'}
+      {isLoading ? (
+        'Logging out...'
+      ) : null}
     </button>
   )
 }

@@ -125,26 +125,26 @@ const AssetTable = ({ data }) => {
       {showModal && (
         <div className="modal">
           <form className="modal-content" onSubmit={handleSubmit}>
-            <p>{selectedAsset.name}</p>
-            <p>{selectedAsset.ticker}</p>
-            <label>
+            <p>Stock: {selectedAsset.name }</p>
+            <p> Ticker : {selectedAsset.ticker} </p>
+            <label className ="modalTradeData"> 
               Quantity:
-              <input
+              <input className = "modalInput"
                 type="number"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
                 min={0}
               />
             </label>
-            <label>
+            <label className ="modalTradeData">
               Buy/Sell:
-              <select value={action} onChange={(e) => setAction(e.target.value)}>
+              <select className ="modalOptions" value={action} onChange={(e) => setAction(e.target.value)}>
                 <option value="Buy">Buy</option>
                 <option value="Sell">Sell</option>
               </select>
             </label>
-            <button type="submit">Submit</button>
-            <button type="button" onClick={() => setShowModal(false)}>Close</button>
+            <button className = "modalSubmit"  type="submit">Book Trade</button>
+            <button className = "modalButton" type="button" onClick={() => setShowModal(false)}>Close</button>
           </form>
         </div>
       )}

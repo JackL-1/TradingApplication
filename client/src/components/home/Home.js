@@ -17,23 +17,11 @@ import { useNavigate } from 'react-router-dom'
 const Home = () => {
   const [assetData, setAssetData] = useState(null)
   const [tradeData, setTradeData] = useState([])
+  const [shouldFetchTradeData, setShouldFetchTradeData] = useState(true)
+  const [AddFundsModal, setAddFundsModal] = useState(false)
+  const [FundsAmount, setFundsAmount] = useState('')
 
-  // const [isModalOpen, setIsModalOpen] = useState(false)
-
-  // const handleAddFunds = async (amount) => {
-  //   try {
-  //     const response = await axios.post('/api/add_funds', {
-  //       amount: amount,
-  //     })
-  //     console.log(response.data)
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  //   setIsModalOpen(false)
-  // }
-
-
-
+  // fetches asset data on load 
   useEffect(() => {
     const fetchAssetData = async () => {
       try {
@@ -53,9 +41,16 @@ const Home = () => {
       }
     }
 
+    fetchAssetData()
+  }, [])
+
+
+  // fetches users trades from Database
+  // Fetch trade data when shouldFetchTradeData changes
+  useEffect(() => {
     const fetchTradeData = async () => {
       try {
-        const jwtToken = getToken() // Retrieve the JWT token from local storage
+        const jwtToken = getToken()
         const response = await authenticated.get('/api/trades/', {
           headers: {
             Authorization: `Bearer ${jwtToken}`,
@@ -72,10 +67,34 @@ const Home = () => {
       }
     }
 
-    fetchTradeData()
-    fetchAssetData()
-  }, [tradeData])
+    if (shouldFetchTradeData) {
+      fetchTradeData()
+      setShouldFetchTradeData(false)
+    }
+  }, [shouldFetchTradeData])
 
+  // Reset shouldFetchTradeData when tradeData changes
+  useEffect(() => {
+    setShouldFetchTradeData(true)
+  }, [])
+
+
+  // handling the input of funds opens modal 
+  const handleAddFundsModal = () => {
+    setAddFundsModal(true)
+  }
+
+  // closes funds modal 
+  const handleCloseFundsModal = () => {
+    setAddFundsModal(false)
+  }
+
+  const handleSubmitFunds = (amount) => {
+    console.log(`Adding funds: $${amount}`)
+
+    setFundsAmount('')
+    setAddFundsModal(false)
+  }
 
 
   const handleLogout = async () => {
@@ -88,9 +107,13 @@ const Home = () => {
     <>
       <div className="hero">
         <h1>ToTheMoon</h1>
-        {/* <AddFunds className='addfunds' onClick={handleAddFunds} /> */}
-        <LogoutButton className='logout' onClick={handleLogout} />
-      </div>
+        <button className="addFundsBtn" onClick={handleAddFundsModal}>
+          Add Funds $
+        </button>
+        <div className="logoutBtnSurround">
+          <LogoutButton onClick={handleLogout} />
+        </div>
+      </div >
       <div className="timezoneInfo">
         <h2>Please note US Stocks price against NYSE hours: 14:30 - 21:00 GMT+1 </h2>
         <h2>Please note US Stocks price against NYSE hours: 14:30 - 21:00 GMT+1 </h2>
