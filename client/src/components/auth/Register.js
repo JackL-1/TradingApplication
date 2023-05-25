@@ -14,17 +14,18 @@ import '../../styles/auth/register.scss'
 
 
 const Register = () => {
+  const [formErrors, setFormErrors] = useState({})
 
   const navigate = useNavigate()
 
   // ! State
-  const [ formFields, setFormFields ] = useState({
+  const [formFields, setFormFields] = useState({
     username: '',
     email: '',
     password: '',
     password_confirmation: '',
   })
-  const [ error, setError ] = useState('')
+  const [error, setError] = useState('')
 
   // ! Executions
   const handleChange = (e) => {
@@ -41,9 +42,24 @@ const Register = () => {
 
     } catch (err) {
       console.log('error', err)
-      setError(err.response.data.message)
+      if (err.response.data && typeof err.response.data === 'object') {
+        setFormErrors(err.response.data)
+      } else {
+        setError(err.response.data.message)
+      }
     }
   }
+
+
+  const renderFieldErrors = (fieldName) => {
+    if (formErrors[fieldName]) {
+      return formErrors[fieldName].map((error, index) => (
+        <p key={index} className='registerError'>{error}</p>
+      ))
+    }
+    return null
+  }
+
 
   // ! JSX
   return (
@@ -56,16 +72,20 @@ const Register = () => {
             <h1 className='title'>Register</h1>
             {/* Username */}
             <label htmlFor="username">Username</label>
-            <input className ="register_input" type="text" name="username" placeholder='Username' onChange={handleChange} value={formFields.username} />
+            <input className="register_input" type="text" name="username" placeholder='Username' onChange={handleChange} value={formFields.username} />
+            {renderFieldErrors('username')}
             {/* Email */}
             <label htmlFor="email">Email</label>
-            <input className ="register_input" type="email" name="email" placeholder='Email' onChange={handleChange} value={formFields.email} />
+            <input className="register_input" type="email" name="email" placeholder='Email' onChange={handleChange} value={formFields.email} />
+            {renderFieldErrors('email')}
             {/* Password */}
             <label htmlFor="password">Password</label>
-            <input className ="register_input" type="password" name="password" placeholder='Password' onChange={handleChange} value={formFields.password} />
+            <input className="register_input" type="password" name="password" placeholder='Password' onChange={handleChange} value={formFields.password} />
+            {renderFieldErrors('password')}
             {/* Password Confirmation */}
             <label htmlFor="password_confirmation">Password Confirmation</label>
-            <input className ="register_input" type="password_confirmation" name="password_confirmation" placeholder='Password Confirmation' onChange={handleChange} value={formFields.password_confirmation} />
+            <input className="register_input" type="password_confirmation" name="password_confirmation" placeholder='Password Confirmation' onChange={handleChange} value={formFields.password_confirmation} />
+            {renderFieldErrors('password_confirmation')}
             {/* Submit */}
             <div className='btnCenter'>
               <button className='register_button'>Register</button>
