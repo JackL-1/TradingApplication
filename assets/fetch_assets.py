@@ -13,7 +13,7 @@ finnhub_client = finnhub.Client(api_key=os.getenv('API_KEY'))
 
 
 def fetch_assets():
-    asset_data = finnhub_client.stock_symbols('US')
+    asset_data = finnhub_client.stock_symbols('US')[0:10000]
 
     for asset in asset_data:
         ticker = asset['symbol']

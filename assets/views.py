@@ -12,7 +12,7 @@ class GetAllAssetsView(APIView):
     def get(self, request):
         
         #to populate all assets into the DB from API . Can change how many with format ('US')[0:n] n is int
-        #fetch_assets()
+        fetch_assets()
         
         assets = Asset.objects.all()
         serialized_assets = AssetSerializer(assets, many=True)
