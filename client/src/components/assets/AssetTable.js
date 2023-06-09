@@ -6,6 +6,7 @@ import axios from 'axios'
 const AssetTable = ({ data }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [showModal, setShowModal] = useState(false)
+  const [modalError, setModalError] = useState(null)
   const [selectedAsset, setSelectedAsset] = useState({})
   const [quantity, setQuantity] = useState(0)
   const [action, setAction] = useState('')
@@ -62,10 +63,13 @@ const AssetTable = ({ data }) => {
         },
       })
 
+
       console.log(tradeResponse.data)
       setShowModal(false)
     } catch (error) {
       console.error(error)
+      setShowModal(true)
+      setModalError(error.response.data.error)
     }
   }
 
@@ -74,7 +78,7 @@ const AssetTable = ({ data }) => {
   return (
     <div className="outer-wrapper">
       <div className="search_bar">
-        <input className = "searchInput"
+        <input className="searchInput"
           type="text"
           placeholder="Search by name..."
           value={searchQuery}
@@ -110,7 +114,7 @@ const AssetTable = ({ data }) => {
                 ))}
               {Array.isArray(filteredData) &&
                 Array.from({ length: Math.max(0, 21 - filteredData.length) }).map((_, index) => (
-                  <tr key={`empty-${index}`}style={{ height: '17px' }}>
+                  <tr key={`empty-${index}`} style={{ height: '17px' }}>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -125,26 +129,27 @@ const AssetTable = ({ data }) => {
       {showModal && (
         <div className="modal">
           <form className="modal-content" onSubmit={handleSubmit}>
-            <p>Stock: {selectedAsset.name }</p>
+            <p>Stock: {selectedAsset.name}</p>
             <p> Ticker : {selectedAsset.ticker} </p>
-            <label className ="modalTradeData"> 
+            <label className="modalTradeData">
               Quantity:
-              <input className = "modalInput"
+              <input className="modalInput"
                 type="number"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
                 min={0}
               />
             </label>
-            <label className ="modalTradeData">
+            <label className="modalTradeData">
               Buy/Sell:
-              <select className ="modalOptions" value={action} onChange={(e) => setAction(e.target.value)}>
+              <select className="modalOptions" value={action} onChange={(e) => setAction(e.target.value)}>
                 <option value="Buy">Buy</option>
                 <option value="Sell">Sell</option>
               </select>
             </label>
-            <button className = "modalSubmit"  type="submit">Book Trade</button>
-            <button className = "modalButton" type="button" onClick={() => setShowModal(false)}>Close</button>
+            {modalError && <p>Error: {modalError}</p>}
+            <button className="modalSubmit" type="submit">Book Trade</button>
+            <button className="modalButton" type="button" onClick={() => setShowModal(false)}>Close</button>
           </form>
         </div>
       )}

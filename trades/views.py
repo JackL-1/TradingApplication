@@ -15,6 +15,11 @@ from .models import Trade
 from prices.fetch_prices import fetch_price, start_scheduler
 from trades.serializers.common import TradeSerializer
 
+# errors
+from rest_framework.exceptions import ValidationError
+
+from django.views.decorators.csrf import csrf_exempt
+
 class TradesView(APIView):
 
     serializer_class = TradeSerializer
@@ -22,7 +27,7 @@ class TradesView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-          
+
         user_trades = Trade.objects.filter(user=request.user)
         serialized_trades = TradeSerializer(user_trades, many=True)
         return Response({"TradeData": serialized_trades.data})
@@ -69,6 +74,8 @@ class TradePreConfirm(APIView):
             f"price": latest_price.price}, status=status.HTTP_200_OK)
 
 
+
+@csrf_exempt
 class TradePostView(generics.CreateAPIView):
     serializer_class = TradeSerializer
     authentication_classes = (JWTAuthentication,)
@@ -99,7 +106,7 @@ class TradePostView(generics.CreateAPIView):
 
         # Check if trade value is <= funds
         if trade_value > request.user.funds:
-            return Response({'detail': 'Insufficient funds'}, status=status.HTTP_400_BAD_REQUEST)
+            raise ValidationError('Insufficient funds')
 
         # Create the trade with the retrieved price and timestamp
         trade = Trade.objects.create(
