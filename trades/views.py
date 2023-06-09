@@ -18,7 +18,7 @@ from trades.serializers.common import TradeSerializer
 # errors
 from rest_framework.exceptions import ValidationError
 
-from django.views.decorators.csrf import csrf_exempt
+
 
 class TradesView(APIView):
 
@@ -75,13 +75,13 @@ class TradePreConfirm(APIView):
 
 
 
-@csrf_exempt
-class TradePostView(generics.CreateAPIView):
+
+class TradePostView(APIView):
     serializer_class = TradeSerializer
     authentication_classes = (JWTAuthentication,)
     permission_classes = (IsAuthenticated,)
 
-    def create(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         asset_ticker = request.data.get('ticker')
         quantity = request.data.get('quantity')
         buy_sell = request.data.get('buy_sell')
